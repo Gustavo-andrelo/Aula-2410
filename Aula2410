@@ -12,8 +12,8 @@ namespace Empresa1710.Entidade
             List<Funcionario> list = new List<Funcionario>();
 
             Console.Write("Entre o numero de funcionarios:");
-                int n = int.Parse(Console.ReadLine());
-            for(int i = 1; i <= n; i++)
+            int n = int.Parse(Console.ReadLine());
+            for (int i = 1; i <= n; i++)
             {
                 Console.WriteLine($"Funcionario # {i} data:");
                 Console.Write("Tercerizado (y/n)?");
@@ -24,12 +24,23 @@ namespace Empresa1710.Entidade
                 int Horas = int.Parse(Console.ReadLine());
                 Console.Write("Valor por Horas:");
                 double valorPorHoras = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
-                if (ch == 'y');
+                if (ch == 'y') 
+                {
+                    Console.Write("Despesa Adicional:");
+                    double despesaAdicional = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                    list.Add(new FuncionarioTerceirizado(Nome, Horas, valorPorHoras, despesaAdicional));
+                }
+
+
+                else
+                    {
+                        list.Add(new Funcionario(Nome, Horas, valorPorHoras));
+                    }
+                }
             }
+
         }
-        
     }
-}
 
 
 Classe
