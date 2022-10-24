@@ -1,0 +1,68 @@
+Programa Principal(Nao ta feita muita coisa...mas e por que ta começando pela classe e sublcasse)
+using System;
+
+namespace Empresa1710
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello World!");
+        }
+    }
+}
+
+Classe
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Empresa1710
+{
+    class Funcionario
+    {
+        public string Nome { get; set; }
+        public int Horas { get; set; }
+        public double Valor_Por_Hora { get; set; }
+        public Funcionario(){}
+        public Funcionario(string nome, int horas, double valor_por_hora)
+        
+        {
+            Nome = nome;
+            Horas = horas;
+            Valor_Por_Hora = valor_por_hora; 
+        }
+        public virtual double Pagamento()
+        {
+            return Horas * Valor_Por_Hora;
+        }
+    }
+}
+    
+
+SubClasse
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Empresa1710.Entidade
+{
+    class FuncionarioTerceirizado : Funcionario
+    {
+        public double DespesaAdicional { get; set; }
+        public FuncionarioTerceirizado(){}
+        public FuncionarioTerceirizado(string nome, int horas, double valor_por_hora, double despesaadicional) 
+        :base(nome, horas, valor_por_hora)
+        {
+            DespesaAdicional = despesaadicional;
+        }
+        public override double Pagamento()
+        {
+            return base.Pagamento() + 1.1 * DespesaAdicional;
+        }
+    }
+}
+
+
