@@ -1,0 +1,83 @@
+SubClasse
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Atividade3110.Entidades
+{
+    class Apolice_Seguros
+    {
+        public int Numero { get; set; }
+        public int Cod_seguradora { get; set; }
+        public double Data { get; set; }
+        public double Valor_premio { get; set;}
+        public double Valor_bem { get; set; }
+        public double Valor_apolice { get; set; }
+        public Apolice_Seguros(int numero, int cod_seguradora, double data, double valor_premio, double valor_bem, double valor_apolice)
+        {
+            Numero = numero;
+            Cod_seguradora = cod_seguradora;
+            Data = data;
+            Valor_premio = valor_premio;
+            Valor_bem = valor_bem;
+            Valor_apolice = valor_apolice;
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Atividade3110.Entidades
+{
+    class Apolice_Residencia
+    {
+        public string Endereco { get; set; }
+        public int Cep { get; set; }
+        public string Bairro { get; set; }
+        public string Municipio { get; set; }
+        public string Cidade { get; set; }
+        public string UF { get; set; }
+        public Apolice_Residencia(string endereco,int cep,string bairro,string municipio,string cidade,string uf )
+        {
+            Endereco = endereco;
+            Cep = cep;
+            Bairro = bairro;
+            Municipio = municipio;
+            Cidade = cidade;
+            UF = uf;
+        }
+    }
+}
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Atividade3110.Entidades
+{
+    class Apolice_Carro
+    {
+        public string Marca { get; set; }
+        public string Modelo { get; set; }
+        public string Placa { get; set; }
+        public string Renavam  { get; set; }
+        public int Ano_fabricacao { get; set; }
+        public long Quilometragem { get; set; }
+        public long Numero_vistoria { get; set; }
+        public double Data_vistoria { get; set; }
+        public Apolice_Carro(string marca, string modelo,string placa, string renavam, int ano_fabricacao, long quilometragem,long numero_vistoria,double data_vistoria)
+        {
+            Marca = marca;
+            Modelo = modelo;
+            Placa = placa;
+            Renavam = renavam;
+            Ano_fabricacao = ano_fabricacao;
+            Quilometragem = quilometragem;
+            Numero_vistoria = numero_vistoria;
+            Data_vistoria = data_vistoria;
+        }
+    }
+}
