@@ -37,6 +37,14 @@ namespace Empresa1710.Entidade
                         list.Add(new Funcionario(Nome, Horas, valorPorHoras));
                     }
                 }
+            
+            
+                Console.WriteLine();
+                Console.WriteLine("Pagamento:");
+                foreach (Funcionario emp in list)
+            {
+                Console.WriteLine(emp.Nome + "-$" + emp.Pagamento().ToString("F2", CultureInfo.InvariantCulture));
+
             }
 
         }
