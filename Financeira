@@ -1,1 +1,101 @@
+Programa Principal
+using System;
 
+namespace Financeira
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            Console.WriteLine("Hello World!");
+        }
+    }
+}
+
+Classe 1
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Financeira.Entidades
+{
+    class Contrato
+    {
+        public int Numero { get; set; }
+        public string Contratante { get; set; }
+        public double Valor { get; set; }
+        public int Prazo { get; set; }
+
+       public Contrato()
+        {
+
+        }
+
+        public Contrato(int numero, string contratante, double valor, int prazo)
+        {
+        Numero= numero;
+        Contratante=contratante;
+        Valor=valor;
+        Prazo=prazo;  
+        }
+        public virtual double calcularprestacao()
+        {
+            return + 3;
+        }
+    }
+}
+
+Classe 2
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Financeira.Entidades
+{
+    class ContratoPessoaFisica : Contrato
+    {
+        public int CPF { get; set; }
+        public int Idade { get; set; }
+
+        public ContratoPessoaFisica() { }
+
+        public ContratoPessoaFisica(int cpf, int idade) : base()
+        {
+            CPF = cpf; 
+            Idade = idade;
+        }
+        public virtual double Calcularprestacao()
+        {
+            return + 3; 
+        }
+    }
+}
+
+
+Classe 3
+using System;
+using System.Collections.Generic;
+using System.Text;
+
+namespace Financeira.Entidades
+{
+    class ContratoPessoaJuridica
+    {
+        public int CNPJ { get; set; }
+        public int Inscricao { get; set; }
+        
+        public ContratoPessoaJuridica()
+        {
+
+        }
+        public ContratoPessoaJuridica(int cnpj,int inscricao):base()
+        {
+            CNPJ=cnpj;
+            Inscricao=inscricao;
+        }
+        public virtual double calcularprestacao()
+        {
+            return +3;
+        }
+    }
+}
