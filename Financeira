@@ -1,7 +1,9 @@
 Programa Principal
 using System;
+using System.Globalization;
+using System.Collections.Generic;
 
-namespace Financeira
+namespace Financeira.Entidades
 {
     class Program
     {
@@ -12,10 +14,10 @@ namespace Financeira
     }
 }
 
-Classe 1
+Classe Contrato
 using System;
+using System.Globalization;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Financeira.Entidades
 {
@@ -42,13 +44,17 @@ namespace Financeira.Entidades
         {
             return + 3;
         }
+        public virtual exibirInfo()
+        {
+
+        }
     }
 }
 
-Classe 2
+Classe ContatoPessoaFisica
 using System;
+using System.Globalization;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Financeira.Entidades
 {
@@ -57,9 +63,11 @@ namespace Financeira.Entidades
         public int CPF { get; set; }
         public int Idade { get; set; }
 
-        public ContratoPessoaFisica() { }
+        public ContratoPessoaFisica()
+        { 
+        }
 
-        public ContratoPessoaFisica(int cpf, int idade) : base()
+        public ContratoPessoaFisica(int cpf, int idade)
         {
             CPF = cpf; 
             Idade = idade;
@@ -68,14 +76,18 @@ namespace Financeira.Entidades
         {
             return + 3; 
         }
+        public virtual exibirInfo()
+        {
+
+        }
     }
 }
 
 
-Classe 3
+Classe ContratoPessoaJuridica
 using System;
+using System.Globalization;
 using System.Collections.Generic;
-using System.Text;
 
 namespace Financeira.Entidades
 {
@@ -96,6 +108,10 @@ namespace Financeira.Entidades
         public virtual double calcularprestacao()
         {
             return +3;
+        }
+        public virtual exibirInfo()
+        {
+
         }
     }
 }
