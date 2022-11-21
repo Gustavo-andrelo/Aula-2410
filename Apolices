@@ -1,0 +1,299 @@
+Programa principal 
+
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+using DS_Corretora.Entidades;
+
+namespace DS_Corretora 
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            List<Apolice> list = new List<Apolice>();
+
+            Console.Write("Entre com o número de apólices que deseja fazer: ");
+            int n = int.Parse(Console.ReadLine());
+            Console.WriteLine();
+
+            for (int i = 1; i <= n; i++)
+            {
+                Console.WriteLine($"Dados da {i}º Apólice:");
+                Console.Write("Você deseja fazer apólice de Carro ou Residencia? (c / r): ");
+                char ch = char.Parse(Console.ReadLine());
+                Console.Write("Entre o número da apolice: ");
+                int numero = int.Parse(Console.ReadLine());
+                Console.Write("Entre o código da seguradora: ");
+                int codigoSeguradora = int.Parse(Console.ReadLine());
+                Console.Write("Entre a data da apólice: ");
+                DateTime data = DateTime.Parse(Console.ReadLine());
+                Console.Write("Entre o valor do premio: ");
+                double valorDoPremio = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                Console.Write("Entre o valor do bem: ");
+                double valorDoBem = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                Console.Write("Entre o valor da apólice: ");
+                double valorDaApolice = double.Parse(Console.ReadLine(), CultureInfo.InvariantCulture);
+                if (ch == 'c')
+                {
+                    Console.Write("Informe a marca do carro: ");
+                    string marca = Console.ReadLine();
+                    Console.Write("Informe o modelo do carro: ");
+                    string modelo = Console.ReadLine();
+                    Console.Write("Informe a placa do carro: ");
+                    string placa = Console.ReadLine();
+                    Console.Write("Informe o renevam do carro: ");
+                    string renevam = Console.ReadLine();
+                    Console.Write("Informe o ano de fabricação do carro: ");
+                    int anoFabricacao = int.Parse(Console.ReadLine());
+                    Console.Write("Informe a quilometragem do carro: ");
+                    long quilometragem = long.Parse(Console.ReadLine());
+                    Console.Write("Informe o número de visitória do carro: ");
+                    long numeroVisitoria = long.Parse(Console.ReadLine());
+                    Console.Write("Informe a data da visitoria");
+                    DateTime dataVisitoria = DateTime.Parse(Console.ReadLine());
+                    list.Add(new Apolice_carro(numero, codigoSeguradora, data, valorDoPremio, valorDoBem, valorDaApolice, marca, modelo, placa, renevam, anoFabricacao, quilometragem, numeroVisitoria, dataVisitoria));
+                }
+                else
+                {
+                    Console.Write("Informe o endereço da residência: ");
+                    string endereco = Console.ReadLine();
+                    Console.Write("Informe o CEP da residência: ");
+                    int cep = int.Parse(Console.ReadLine());
+                    Console.Write("Informe o bairro da residência: ");
+                    string bairro = Console.ReadLine();
+                    Console.Write("Informe o município da residência: ");
+                    string municipio = Console.ReadLine();
+                    Console.Write("Informe a cidade da residência: ");
+                    string cidade = Console.ReadLine();
+                    Console.Write("Informe o UF da residência: ");
+                    string uf = Console.ReadLine();
+                    list.Add(new Apolice_Residencia(numero, codigoSeguradora, data, valorDoPremio, valorDoBem, valorDaApolice, endereco, cep, bairro, municipio, cidade, uf));
+                }
+                Console.WriteLine();
+            }
+
+            Console.WriteLine();
+            Console.WriteLine("Dados das apólices:");
+            Console.WriteLine();
+            int a = 1;
+            foreach (Apolice apo in list)
+            {
+                Console.WriteLine($"Dados da {a}º Apólice:");
+                Console.WriteLine("Valor da Parcela em 10x: " + apo.calcularParcelamento().ToString("F2", CultureInfo.InvariantCulture));
+                Console.WriteLine();
+                a++;
+            }
+        }
+    }
+}
+
+Classe 1
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Globalization;
+
+namespace DS_Corretora.Entidades
+{
+    class Apolice
+    {
+
+        public int Numero { get; set; }
+        public int CodSeguradora { get; set; }
+        public DateTime Data { get; set; }
+        public double ValordoPremio { get; set; }
+        public double ValordoBem { get; set; }
+        public double ValordaApolice { get; set; }
+
+
+        public Apolice()
+        {
+        }
+
+        public Apolice(int numero, int codseguradora, DateTime data, double valorpremio, double valorbem, double valorapolice)
+        {
+            Numero = numero;
+            CodSeguradora = codseguradora;
+            Data = data;
+            ValordoPremio = valorpremio;
+            ValordoBem = valorbem;
+            ValordaApolice = valorapolice;
+        }
+
+        public virtual double calcularParcelamento()
+        {
+            return ValordaApolice / 10;
+        }
+        
+        public virtual string DadosApolice()
+        {
+            return "Número da apólice: "
+            + Numero
+            + "\r\n Código da seguradora: "
+            + CodSeguradora
+            + "\r\n Data da apólice: "
+            + Data
+            + "\r\n Valor do premio: "
+            + ValordoPremio.ToString("F2", CultureInfo.InvariantCulture)
+            + "\r\n Valor do bem: "
+            + ValordoBem.ToString("F2", CultureInfo.InvariantCulture)
+            + "\r\n Valor da apólice: "
+            + ValordaApolice.ToString("F2", CultureInfo.InvariantCulture);
+        }
+
+    }
+}
+
+    
+
+Classe 2
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Globalization;
+
+namespace DS_Corretora.Entidades
+{
+    class Apolice_carro : Apolice
+    {
+        
+        public string Marca { get; set; }
+        public string Modelo { get; set; }
+        public string Placa { get; set; }
+        public string Renevam { get; set; }
+        public int AnoFabricacao { get; set; }
+        public long Quilometragem { get; set; }
+        public long NumeroVisitoria { get; set; }
+        public DateTime DataVisitoria { get; set; }
+    
+        public Apolice_carro() {
+        }
+        public Apolice_carro(int numero, int codseguradora, DateTime data, double valorpremio, double valorbem, double valorapolice, string marca, string modelo, string placa, string renevam, int anoFabricacao, long quilometragem, long numeroVisitoria, DateTime dataVisitoria) : base(numero, codseguradora, data, valorpremio, valorbem, valorapolice)
+        {
+            Marca = marca;
+            Modelo = modelo;
+            Placa = placa;
+            Renevam = renevam;
+            AnoFabricacao = anoFabricacao;
+            Quilometragem = quilometragem;
+            NumeroVisitoria = numeroVisitoria;
+            DataVisitoria = dataVisitoria;
+        }
+
+        public override double calcularParcelamento()
+        {
+            return (base.ValordaApolice * 1.05) / 10;
+        }
+        
+        public override string DadosApolice()
+        {
+            return "Número da apólice: "
+            + Numero
+            + "Código da seguradora: "
+            + CodSeguradora
+            + " Data da apólice: "
+            + Data
+            + " Valor do premio: "
+            + ValordoPremio.ToString("F2", CultureInfo.InvariantCulture)
+            + " Valor do bem: "
+            + ValordoBem.ToString("F2", CultureInfo.InvariantCulture)
+            + " Valor da apólice: "
+            + ValordaApolice.ToString("F2", CultureInfo.InvariantCulture)
+            + " Marca do carro: "
+            + Marca
+            + " Modelo do carro: "
+            + Modelo
+            + " Placa do carro: "
+            + Placa
+            + " Renevam do carro: "
+            + Renevam
+            + " Ano de fabricação do carro: "
+            + AnoFabricacao
+            + " Quilometragem do carro: "
+            + Quilometragem
+            + " Numero de visitória: "
+            + NumeroVisitoria
+            + " Data de visitoria: "
+            + DataVisitoria;
+        }
+    }
+}
+    
+
+Classe 3
+
+using System;
+using System.Collections.Generic;
+using System.Text;
+using System.Globalization;
+
+namespace DS_Corretora.Entidades
+{
+    class Apolice_Residencia : Apolice
+    {
+         
+        public string Endereco { get; set; }
+        public int Cep{ get; set; }
+        public string Bairro { get; set; }
+        public string Municipio { get; set; }
+        public string Cidade { get; set; }
+        public string Uf { get; set; }
+
+
+
+        public Apolice_Residencia()
+        {
+
+
+
+        }
+        public Apolice_Residencia(int numero, int codseguradora, DateTime data, double valorpremio, double valorbem, double valorapolice, string endereco, int cep, string bairro, string municipio, string cidade, string uf) : base(numero, codseguradora, data, valorpremio, valorbem, valorapolice)
+        {
+            Endereco = endereco;
+            Cep = cep;
+            Bairro = bairro;
+            Municipio = municipio;
+            Cidade = cidade;
+            Uf = uf;
+        }
+
+
+
+        public override double calcularParcelamento()
+        {
+            return (base.ValordaApolice * 1.01) / 10;
+        }
+        
+        public override string DadosApolice()
+        {
+            return "Número da apólice: "
+            + Numero
+            + "Código da seguradora: "
+            + CodSeguradora
+            + " Data da apólice: "
+            + Data
+            + " Valor do premio: "
+            + ValordoPremio.ToString("F2", CultureInfo.InvariantCulture)
+            + " Valor do bem: "
+            + ValordoBem.ToString("F2", CultureInfo.InvariantCulture)
+            + " Valor da apólice: "
+            + ValordaApolice.ToString("F2", CultureInfo.InvariantCulture)
+            + " Endereço da residencia: "
+            + Endereco
+            + " CEP da residencia: "
+            + Cep
+            + " Bairro da residencia: "
+            + Bairro
+            + " Municipio da residencia: "
+            + Municipio
+            + " Cidade da residencia: "
+            + Cidade
+            + " UF da residencia: "
+            + Uf;
+        }
+    }
+}
+
