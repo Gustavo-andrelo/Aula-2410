@@ -1,0 +1,266 @@
+Programa principal
+
+using System;
+using System.Globalization;
+using System.Collections.Generic;
+using Tarefaa.Entidades;
+
+namespace Tarefaa
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+
+            List<Contrato> list = new List<Contrato>();
+            Console.Write("Quantos contratos serão: ");
+            int n = int.Parse(Console.ReadLine());
+
+            for (int cont = 1; cont <= n; cont++)
+            {
+                 Console.WriteLine();
+                Console.WriteLine($"Dados do contrato #{cont} :");
+                Console.Write("Contrato Jurídico ou Físico (J/F)? ");
+                char choice = char.Parse(Console.ReadLine());
+
+                do
+                {
+                    if (choice == 'j' || choice == 'J' || choice == 'f' || choice == 'F')
+                    {
+                        break;
+                    }
+                    Console.WriteLine("Erro!!!");
+                    Console.WriteLine();
+                    Console.WriteLine($"Dados do contrato #{cont} -");
+
+                    Console.Write("Qual o tipo do contrato - Jurídico ou Físico (J/F)?  ");
+                    choice = char.Parse(Console.ReadLine());
+
+                } while (choice != 'j' || choice != 'J' || choice != 'f' || choice != 'F');
+
+
+
+                if (choice == 'j' || choice == 'J')
+                {
+                    Console.Write("Numero: ");
+                    int numero = int.Parse(Console.ReadLine());
+                    Console.Write("Contratante: ");
+                    string contratante = Console.ReadLine();
+                    Console.Write("Valor: $");
+                    double valor = double.Parse(Console.ReadLine());
+                    Console.Write("Prazo [meses]: ");
+                    int prazo = int.Parse(Console.ReadLine());
+                    Console.Write("Cnpj: ");
+                    string cnpj = Console.ReadLine();
+                    Console.Write("Inscrição estadual: ");
+                    string inscricaoEstadual = Console.ReadLine();
+
+                    ContratoPJuridica wow = new ContratoPJuridica();
+
+                    wow.CalcularPrestacao();
+
+                    list.Add(new ContratoPJuridica(numero, contratante, valor, prazo, cnpj, inscricaoEstadual));
+                }
+
+                else if (choice == 'f' || choice == 'F')
+                {
+                    Console.Write("Numero: ");
+                    int numero = int.Parse(Console.ReadLine());
+                    Console.Write("Contratante: ");
+                    string contratante = Console.ReadLine();
+                    Console.Write("Valor: $");
+                    double valor = double.Parse(Console.ReadLine());
+                    Console.Write("Prazo [meses]: ");
+                    int prazo = int.Parse(Console.ReadLine());
+                    Console.Write("CPF: ");
+                    string cpf = Console.ReadLine();
+                    Console.Write("Idade contratante: ");
+                    int idadeContratante = int.Parse(Console.ReadLine());
+
+                    ContratoPFisica wew = new ContratoPFisica();
+
+                    wew.CalcularPrestacao();
+
+                    list.Add(new ContratoPFisica(numero, contratante, valor, prazo, cpf, idadeContratante));
+                }
+
+
+
+
+
+
+            }
+
+
+
+            
+            Console.WriteLine("Segue as informações");
+       
+
+            foreach (Contrato hehe in list)
+            {
+
+                Console.WriteLine();
+                Console.WriteLine(hehe.Intel());
+            }
+
+            
+        }
+    }
+}
+
+Classe 1
+
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Globalization;
+
+namespace Tarefaa.Entidades
+{
+    class ContratoPJuridica : Contrato
+    {
+        public string Cnpj { get; protected set; }
+        public string InscricaoEstadual { get; protected set; }
+          public ContratoPJuridica()
+        {
+        }
+
+        public ContratoPJuridica(int numero, string contratante, double valor, int prazo, string cnpj, string inscricaoEstadual) : base(numero, contratante, valor, prazo)
+        {
+            Cnpj = cnpj;
+            InscricaoEstadual = inscricaoEstadual;
+        }
+
+        public override double CalcularPrestacao()
+        {
+
+            return (Valor / Prazo) + 3;
+
+        }
+
+        public override string Intel()
+        {
+            return " - Número: "
+                + Numero
+                + "  /Valor: $"
+                + Valor.ToString("F2", CultureInfo.InvariantCulture)
+                + " /Prazo: "
+                + Prazo
+                + " meses"
+                + "  /Valor Prestação: $"
+                + CalcularPrestacao().ToString("F2", CultureInfo.InvariantCulture);
+        }
+    }
+
+}
+
+ Classe 2
+ 
+ using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Globalization;
+
+namespace Tarefaa.Entidades
+{
+    class ContratoPFisica : Contrato
+    {
+        public string Cpf { get; protected set; }
+        public int IdadeContratante { get; set; }
+
+        public ContratoPFisica()
+        {
+
+        }
+        public ContratoPFisica(int numero, string contratante, double valor, int prazo, string cpf, int idadeContratante) : base(numero, contratante, valor, prazo)
+        {
+            Cpf = cpf;
+            IdadeContratante = idadeContratante;
+        }
+
+        public override double CalcularPrestacao()
+        {
+            if (IdadeContratante <= 30)
+            {
+                return (Valor / Prazo) + 1;
+            }
+            else if (IdadeContratante <= 40)
+            {
+                return (Valor / Prazo) + 2;
+            }
+            else if (IdadeContratante <= 50)
+            {
+                return (Valor / Prazo) + 3;
+            }
+            else
+            {
+                return (Valor / Prazo) + 3;
+            }
+
+        }
+
+        public override string Intel()
+        {
+            return " - Número: "
+                + Numero
+                + "\n - Valor: $"
+                + Valor.ToString("F2", CultureInfo.InvariantCulture)
+                + "\n - Prazo: "
+                + Prazo
+                + " meses"
+                + "\n - Valor Prestação: $"
+                + CalcularPrestacao().ToString("F2", CultureInfo.InvariantCulture);
+        }
+    }
+}
+ 
+ 
+ Classe 3
+ 
+ using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Globalization;
+
+namespace Tarefaa.Entidades
+{
+    class Contrato
+    {
+        public int Numero { get; protected set; }
+        public string Contratante { get; set; }
+        public double Valor { get; set; }
+        public int Prazo { get; set; }
+
+        public Contrato() 
+        {
+
+        }
+
+        public Contrato(int numero, string contratante, double valor, int prazo)
+        {
+            Numero = numero;
+            Contratante = contratante;
+            Valor = valor;
+            Prazo = prazo;
+        }
+
+        public virtual double CalcularPrestacao()
+        {
+            return 0;
+
+        }
+        public virtual string Intel()
+        {
+            return " ";
+        }
+
+    }
+
+}
